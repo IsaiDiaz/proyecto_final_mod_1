@@ -1,0 +1,52 @@
+.navbar{
+    margin: 7px 0px 7px 7px;
+    z-index: 1;
+    background-color: #FFF;
+    border-radius: 20px 0px 0px 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    width: 20%;
+}
+
+.navbar__header{
+    display: flex;
+    line-height: 2px;
+}
+
+.navbar__header h1{
+    font-size: medium;
+    font-weight: 500;
+}
+
+.navbar__header p{
+    color: #7e4bf6;
+}
+
+.navbar__body-element{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1rem;
+}
+
+.element__icon{
+    color: gray;
+    margin-right: 2em;
+}
+
+
+.element__icon--selected{
+    color: #7e4bf6;
+    margin-right: 2em;
+}
+
+.element__button{
+    border: none;
+    background-color: #FFF;
+    font-family: inherit;
+}
+
+hr{
+    max-width: 70%;
+    border-color:  #7e4bf6; 
+}

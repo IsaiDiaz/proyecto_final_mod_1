@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/home'
 import Login from './pages/Login/login'
 import Register from './pages/Register/register'
+import Tasks from './pages/Tasks/tasks'
 
 function AppRoutes(){
   return (
@@ -14,8 +15,8 @@ function AppRoutes(){
         <Route path="/" element = {<Home/>}/>
         <Route path="/login" element = {<Login/>}/>
         <Route path="/register" element = {<Register/>}/>
-        {/* <Route path="/tasks/:userId" />
-        <Route path="*"/> */}
+        <Route path="/tasks/:userId" element = {<Tasks/>}/>
+        <Route path="*"/>
       </>
     </Routes>
   )

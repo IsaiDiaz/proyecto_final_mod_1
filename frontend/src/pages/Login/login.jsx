@@ -32,7 +32,7 @@ const Login = () => {
                 "success"
             );
 
-            navigate("/")
+            navigate(`/tasks/${response.user.id}`);
 
         } catch (error) {
             console.error("Error al iniciar sesión:", error.response?.data || error.message);
