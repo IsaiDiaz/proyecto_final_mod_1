@@ -11,14 +11,21 @@
     color: #FFF
 }
 
+.tasks-body__task-container{
+    padding: 1rem;
+    padding-top: 1.5rem;
+}
+
 .task{
     background-color: #FFF;
     padding: 7px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     border-radius: 15px;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .task__status{
@@ -26,6 +33,7 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
+    margin-left: 7px;
 }
 
 .task__status--pending {
@@ -61,4 +69,123 @@
     padding: 4px;
 }
 
+.tasks-body__form {
+    background-color: #fff;
+    padding: 14px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
 
+.form__statuses {
+    display: flex;
+    gap: 5px;
+    margin-left: 7px;
+}
+
+.form__input-title {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
+    border: none;
+    outline: none;
+}
+
+.form__right-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    flex-wrap: wrap;
+}
+
+.form__input-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 4px 8px;
+}
+
+.form__input-date input {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.form__submit-button {
+    padding: 6px 14px;
+    background-color: #a581f9;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.form__submit-button:hover {
+    background-color: #8b6dd9;
+}
+
+.form__input-datetime {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.hidden-datetime-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+.calendar-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.calendar-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.form__input-datetime {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.datetime-display {
+    font-size: 0.85rem;
+    color: #333;
+    background-color: rgba(255,255,255,0.7);
+    padding: 4px 6px;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+.hidden-datetime-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}

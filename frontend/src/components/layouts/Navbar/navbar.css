@@ -10,16 +10,17 @@
 
 .navbar__header{
     display: flex;
-    line-height: 2px;
 }
 
 .navbar__header h1{
     font-size: medium;
     font-weight: 500;
+    margin-bottom: 5px;
 }
 
 .navbar__header p{
     color: #7e4bf6;
+    margin: 0;
 }
 
 .navbar__body-element{
@@ -42,7 +43,7 @@
 
 .element__button{
     border: none;
-    background-color: #FFF;
+    background-color: inherit;
     font-family: inherit;
 }
 
