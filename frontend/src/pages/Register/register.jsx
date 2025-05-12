@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { registerUser } from "../../services/userService";
 import { useNavigate } from "react-router-dom";
-import { Mail, Lock, CheckCircle, User } from 'lucide-react';
+import { Mail, Lock, CheckCircle, User} from 'lucide-react';
 import MessageToast from "../../components/toasts/MessageToast/MessageToast";
 
 

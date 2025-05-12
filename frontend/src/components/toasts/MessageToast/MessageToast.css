@@ -11,7 +11,7 @@
     align-items: center;
     gap: 1em;
     z-index: 1000;
-    transition: transform 0.3s ease-in-out, opacity 0.3s;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   }
   
   .toast--slide-in {
@@ -27,6 +27,11 @@
       opacity: 1;
       transform: translateX(0);
     }
+  }
+
+  .toast--fade-out {
+    opacity: 0;
+    transform: translateX(100%);
   }
   
   .toast--success {

@@ -5,7 +5,7 @@
     border-radius: 20px 0px 0px 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     padding: 1.5rem;
-    width: 20%;
+    width: 250px;
 }
 
 .navbar__header{
@@ -32,19 +32,26 @@
 
 .element__icon{
     color: gray;
-    margin-right: 2em;
+    margin-right: 1em;
 }
 
 
 .element__icon--selected{
     color: #7e4bf6;
-    margin-right: 2em;
+    margin-right: 1em;
 }
 
 .element__button{
     border: none;
     background-color: inherit;
     font-family: inherit;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.element__button--selected{
+   color: #7e4bf6;
 }
 
 hr{

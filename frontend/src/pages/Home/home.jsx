@@ -7,7 +7,7 @@ const Home = () => {
         <div className="home">
             <section className="home__hero">
                 <div className="home__content">
-                    <h1 className="home__title">Bienvenido a Task Manager</h1>
+                    <h1 className="home__title">Bienvenid@ a Do-it</h1>
                     <p className="home__subtitle">
                         Organiza tus tareas, alcanza tus metas y mantente productivo con una interfaz simple y poderosa.
                     </p>
@@ -17,7 +17,6 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="home__image-preview">
-                    {/* Aquí puedes insertar una imagen o animación representativa de tu app */}
                     <img src="/assets/demo.png" alt="Vista previa de la aplicación" />
                 </div>
             </section>

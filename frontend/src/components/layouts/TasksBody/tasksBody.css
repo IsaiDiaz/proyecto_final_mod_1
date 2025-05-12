@@ -1,34 +1,41 @@
-.tasks-body{
+.tasks-body {
     z-index: 1;
     width: 80%;
     padding: 1.5rem 75px 1.5rem 75px;
     margin: 7px 7px 7px 0px;
     border-radius: 0px 20px 20px 0px;
     background-color: #a581f9;
+    min-height: 100vh;
 }
 
-.tasks-header h2{
+.tasks-header h2 {
     color: #FFF
 }
 
-.tasks-body__task-container{
+.tasks-body__task-container {
     padding: 1rem;
     padding-top: 1.5rem;
 }
 
-.task{
+.task {
     background-color: #FFF;
     padding: 7px;
     padding-top: 12px;
     padding-bottom: 12px;
     border-radius: 15px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
 }
 
-.task__status{
+.task__top-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task__status {
     display: inline-block;
     width: 12px;
     height: 12px;
@@ -48,18 +55,47 @@
     background-color: greenyellow;
 }
 
-.task__title{
+.task__status--all {
+    background-color: orange;
+}
+
+.task__title {
     font-weight: bold;
 }
 
-.task__right-group{
+.task__description-wrapper {
+    width: 100%;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-5px);
+    padding-left: 10px;
+}
+
+.task__description-wrapper.expanded {
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.task__description {
+    color: #444;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    padding-top: 8px;
+    padding-bottom: 16px;
+    margin: 0;
+}
+
+.task__right-group {
     margin-left: auto;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-.task__right-group button{
+.task__right-group button {
     background-color: inherit;
     border: none;
     cursor: pointer;
@@ -75,6 +111,7 @@
     border-radius: 20px;
     display: flex;
     align-items: center;
+    flex-direction: row;
     gap: 14px;
     margin-bottom: 20px;
     flex-wrap: wrap;
@@ -142,6 +179,20 @@
     align-items: center;
 }
 
+.form__input-description {
+    width: 100%;
+    max-width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 60px;
+    background-color: #f3f3f3;
+    flex-grow: 1;
+}
+
 .hidden-datetime-input {
     position: absolute;
     opacity: 0;
@@ -176,7 +227,7 @@
 .datetime-display {
     font-size: 0.85rem;
     color: #333;
-    background-color: rgba(255,255,255,0.7);
+    background-color: rgba(255, 255, 255, 0.7);
     padding: 4px 6px;
     border-radius: 6px;
     white-space: nowrap;
@@ -189,3 +240,19 @@
     width: 0;
     height: 0;
 }
+
+.message {
+    color: #FFF;
+    text-align: center;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+@keyframes spin-slow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .animate-spin-slow {
+    animation: spin-slow 2s linear infinite;
+  }

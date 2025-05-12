@@ -7,7 +7,6 @@ body {
   min-height: 100vh;
   background-color: #7e4bf6;
   position: relative;
-  overflow: hidden;
   font-family: 'Poppins', sans-serif;
 }
 
@@ -21,17 +20,17 @@ body::after {
 }
 
 body::before {
-  top: -60px;
-  left: -60px;
+  top: 10px;
+  left: 20px;
   width: 160px;
   height: 160px;
   background-color: #4FC3F7;
 }
 
 body::after {
-  bottom: -80px;
-  right: -80px;
-  width: 220px;
-  height: 220px;
+  bottom: 8px;
+  right: 8px;
+  width: 200px;
+  height: 200px;
   background-color: #FFF176;
 }
