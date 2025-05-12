@@ -5,8 +5,7 @@ import Navbar from "../../components/layouts/Navbar/navbar";
 import TasksBody from "../../components/layouts/TasksBody/tasksBody";
 
 const Tasks = () => {
-    const { userId } = useParams();
-    const [selectedView, setSelectedView] = useState("today");
+    const [selectedView, setSelectedView] = useState("all");
     const [selectedStatus, setStatusFilter] = useState('')
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -22,7 +21,6 @@ const Tasks = () => {
                 />
             <TasksBody 
                 selected={selectedView} 
-                userId={userId} 
                 status={selectedStatus}
                 searchTerm={searchTerm}
                 />

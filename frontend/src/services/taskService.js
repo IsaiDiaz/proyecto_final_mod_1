@@ -1,35 +1,35 @@
-import api from "./api";
+import apiPrivate from "./apiPrivate";
 
 export const createTask = async (taskData) => {
-    const response = await api.post('/task', taskData);
+    const response = await apiPrivate.post('/task', taskData);
     return response.data;
 }
 
-export const getTodayTasksByUserId = async (userId, status = '', query = '') => {
-    const response = await api.get(`/tasks/${userId}/today`, {
+export const getTodayTasksByUserId = async (status = '', query = '') => {
+    const response = await apiPrivate.get(`/tasks/today`, {
         params: { status, query }
     });
     return response.data;
 }
 
-export const getTasksByUserId = async (userId, status = '', query = '') => {
-    const response = await api.get(`/tasks/${userId}`, {
+export const getTasksByUserId = async (status = '', query = '') => {
+    const response = await apiPrivate.get(`/tasks`, {
         params: { status, query }
     });
     return response.data;
 };
 
 export const updateTask = async (taskId, taskData) => {
-    const response = await api.put(`/task/${taskId}`, taskData);
+    const response = await apiPrivate.put(`/task/${taskId}`, taskData);
     return response.data;
 }
 
 export const updateProgress = async (taskId) => {
-    const response = await api.put(`/task/${taskId}/progress`);
+    const response = await apiPrivate.put(`/task/${taskId}/progress`);
     return response.data;
 }
 
 export const deleteTask = async (taskId) => {
-    const response = await api.delete(`/task/${taskId}`);
+    const response = await apiPrivate.delete(`/task/${taskId}`);
     return response.data;
 }

@@ -4,10 +4,10 @@ import { getTodayTasksByUserId, getTasksByUserId, createTask, updateTask, update
 import MessageToast from "../../toasts/MessageToast/MessageToast";
 import "./tasksBody.css"
 
-const TasksBody = ({ selected, userId, status, searchTerm }) => {
+const TasksBody = ({ selected, status, searchTerm }) => {
     const title = selected === "today" ? "Tareas de hoy:" : "Todas las tareas:";
     const dateTimeInputRef = useRef(null);
-    const [dateTimeValue, setDateTimeValue] = useState("");
+    const [dateTimeValue, setDateTimeValue] = useState(null);
     const [tasks, setTasks] = useState([]);
     const [titleInput, setTitleInput] = useState("");
     const [selectedStatus, setSelectedStatus] = useState("pending");
@@ -57,7 +57,6 @@ const TasksBody = ({ selected, userId, status, searchTerm }) => {
 
         try {
             const newTask = {
-                UserId: userId,
                 title: titleInput,
                 description: descriptionInput,
                 dueDate: dateTimeValue,
@@ -70,7 +69,9 @@ const TasksBody = ({ selected, userId, status, searchTerm }) => {
             setDateTimeValue("");
             setDescriptionInput("");
 
-            const updatedTasks = await getTodayTasksByUserId(userId, status, searchTerm);
+            const updatedTasks = selected === "today"
+                ? await getTodayTasksByUserId(status, searchTerm)
+                : await getTasksByUserId(status, searchTerm);
             setTasks(updatedTasks);
         } catch (error) {
             console.error("Error al crear la tarea:", error);
@@ -78,12 +79,27 @@ const TasksBody = ({ selected, userId, status, searchTerm }) => {
         }
     }
 
+    const handleDelete = async (taskId) => {
+        try {
+            await deleteTask(taskId);
+            const updatedTasks = selected === "today"
+                ? await getTodayTasksByUserId(status, searchTerm)
+                : await getTasksByUserId(status, searchTerm);
+            setTasks(updatedTasks);
+            setExpandedTaskId(null);
+            showToast("Tarea eliminada correctamente", "success");
+        } catch (err) {
+            console.error("Error al eliminar:", err);
+            showToast("Error al eliminar la tarea", "error");
+        }
+    };
+
     const handleProgressUpdate = async (taskId) => {
         try {
             await updateProgress(taskId);
             const updatedTasks = selected === "today"
-                ? await getTodayTasksByUserId(userId, status, searchTerm)
-                : await getTasksByUserId(userId, status, searchTerm);
+                ? await getTodayTasksByUserId(status, searchTerm)
+                : await getTasksByUserId(status, searchTerm);
             setTasks(updatedTasks);
         } catch (err) {
             console.error("Error al actualizar el progreso:", err);
@@ -91,14 +107,13 @@ const TasksBody = ({ selected, userId, status, searchTerm }) => {
     };
 
     useEffect(() => {
-        if (!userId) return;
 
         const fetchTasks = async () => {
             try {
                 const data =
                     selected === "today"
-                        ? await getTodayTasksByUserId(userId, status, searchTerm)
-                        : await getTasksByUserId(userId, status, searchTerm);
+                        ? await getTodayTasksByUserId(status, searchTerm)
+                        : await getTasksByUserId(status, searchTerm);
                 setTasks(data);
             } catch (error) {
                 console.error("Error fetching tasks:", error)
@@ -106,7 +121,7 @@ const TasksBody = ({ selected, userId, status, searchTerm }) => {
         };
 
         fetchTasks();
-    }, [userId, selected, status, searchTerm]);
+    }, [selected, status, searchTerm]);
 
     return (
         <>
@@ -186,13 +201,13 @@ const TasksBody = ({ selected, userId, status, searchTerm }) => {
 
                                         <div className="task__right-group">
                                             <span className="task__due-date">
-                                                {new Date(task.dueDate).toLocaleString("es-ES", {
+                                                {task.dueDate ? new Date(task.dueDate).toLocaleString("es-ES", {
                                                     day: "2-digit",
                                                     month: "2-digit",
                                                     year: "2-digit",
                                                     hour: "2-digit",
                                                     minute: "2-digit"
-                                                })}
+                                                }) : ""}
                                             </span>
 
                                             <button
@@ -253,8 +268,8 @@ const TasksBody = ({ selected, userId, status, searchTerm }) => {
                                                                     dueDate: editingDate
                                                                 });
                                                                 const updatedTasks = selected === "today"
-                                                                    ? await getTodayTasksByUserId(userId, status, searchTerm)
-                                                                    : await getTasksByUserId(userId, status, searchTerm);
+                                                                    ? await getTodayTasksByUserId(status, searchTerm)
+                                                                    : await getTasksByUserId(status, searchTerm);
                                                                 setTasks(updatedTasks);
                                                                 setEditingTaskId(null);
                                                                 setExpandedTaskId(null);
@@ -284,27 +299,22 @@ const TasksBody = ({ selected, userId, status, searchTerm }) => {
                                                     >
                                                         Editar
                                                     </button>
-                                                    {task.status === "done" && <button
-                                                        className="form__submit-button"
-                                                        style={{ backgroundColor: "#ff8888" }}
-                                                        onClick={async () => {
-                                                            const confirmed = window.confirm("¿Estás seguro de eliminar esta tarea?");
-                                                            if (confirmed) {
-                                                                try {
-                                                                    await deleteTask(task.id);
-                                                                    const updatedTasks = selected === "today"
-                                                                        ? await getTodayTasksByUserId(userId, status, searchTerm)
-                                                                        : await getTasksByUserId(userId, status, searchTerm);
-                                                                    setTasks(updatedTasks);
-                                                                    setExpandedTaskId(null);
-                                                                } catch (err) {
-                                                                    console.error("Error al eliminar:", err);
-                                                                }
-                                                            }
-                                                        }}
-                                                    >
-                                                        Eliminar
-                                                    </button>}
+                                                    {task.status === "done" && (
+                                                        <button
+                                                            className="form__submit-button"
+                                                            style={{ backgroundColor: "#ff8888" }}
+                                                            onClick={() => {
+                                                                showToast(
+                                                                    "¿Estás seguro de eliminar esta tarea?",
+                                                                    "error",
+                                                                    "Eliminar",
+                                                                    () => handleDelete(task.id)
+                                                                );
+                                                            }}
+                                                        >
+                                                            Eliminar
+                                                        </button>
+                                                    )}
 
                                                 </div>
                                             </>

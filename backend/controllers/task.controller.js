@@ -1,14 +1,28 @@
 const { Task } = require('../models');
-const {Op} = require('sequelize')
+const { Op } = require('sequelize')
 
-exports.createTask = async (req, res) =>{
-    const task = await Task.create(req.body);
-    res.status(201).json(task);
-}
+exports.createTask = async (req, res) => {
+    try {
+        const { title, description, dueDate, status } = req.body;
+
+        const task = await Task.create({
+            title,
+            description: description || null,
+            dueDate: dueDate || null,
+            status,
+            UserId: req.user.id,
+        });
+
+        res.status(201).json(task);
+    } catch (error) {
+        console.error("Error al crear la tarea:", error);
+        res.status(500).json({ message: "Error al crear la tarea" });
+    }
+};
 
 
 exports.getTasksByUserId = async (req, res) => {
-    const { userId } = req.params;
+    const userId = req.user.id;
     const { status, query } = req.query;
 
     try {
@@ -48,7 +62,7 @@ exports.getTaskById = async (req, res) => {
 }
 
 exports.getTodayTasksByUserId = async (req, res) => {
-    const { userId } = req.params;
+    const userId = req.user.id;
     const { status, query } = req.query;
 
     const startOfDay = new Date();
@@ -89,7 +103,7 @@ exports.getTodayTasksByUserId = async (req, res) => {
     }
 };
 
-exports.updateTask = async (req, res) =>{
+exports.updateTask = async (req, res) => {
     const { id } = req.params;
     const task = await Task.findByPk(id);
     if (!task) {
