@@ -1,7 +1,7 @@
 .navbar{
     margin: 7px 0px 7px 7px;
     z-index: 1;
-    background-color: #FFF;
+    background-color: #ffffffec;
     border-radius: 20px 0px 0px 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     padding: 1.5rem;
@@ -14,12 +14,14 @@
 
 .navbar__header h1{
     font-size: medium;
-    font-weight: 500;
+    font-weight:bold;
     margin-bottom: 5px;
+    font-size: large;
 }
 
 .navbar__header p{
-    color: #7e4bf6;
+    font-size: small;
+    text-align: center;
     margin: 0;
 }
 
@@ -58,3 +60,59 @@ hr{
     max-width: 70%;
     border-color:  #7e4bf6; 
 }
+
+.navbar__toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1100;
+}
+
+.navbar__toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.icon-title{
+    display: flex;
+    gap:10px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #7e4bf6;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 95vh;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+        margin: 0;
+        border-radius: 0;
+        padding-top: 50px;
+        padding-bottom: 100px;
+        overflow-y: auto;
+    }
+
+    .navbar--open {
+        transform: translateX(0);
+    }
+
+    .navbar--closed {
+        transform: translateX(-100%);
+    }
+
+    .navbar__toggle {
+        display: block;
+    }
+}
+

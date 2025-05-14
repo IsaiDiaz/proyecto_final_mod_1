@@ -50,7 +50,17 @@ exports.authPassword = async (req, res) => {
 
 exports.createUser = async (req, res) => {
     try {
-        const { password, ...rest } = req.body;
+        const { password, email, ...rest } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ message: 'El correo electrónico es obligatorio' });
+        }
+
+        const existingUser = await User.findOne({ where : {email}  });
+        if (existingUser) {
+            return res.status(400).json({ message: 'El correo ya está en uso' });
+        }
+
 
         if (!password) {
             return res.status(400).json({ message: 'La contraseña es obligatoria' });
@@ -61,6 +71,7 @@ exports.createUser = async (req, res) => {
 
         const user = await User.create({
             ...rest,
+email: email,
             password: hashedPassword
         });
 
@@ -114,4 +125,15 @@ exports.refreshToken = async (req, res) => {
         console.error("Error al refrescar token:", err);
         res.status(401).json({ message: "Token inválido o expirado" });
     }
+};
+
+exports.logout = async (req, res) => {
+    res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "Strict",
+        path: "/" 
+    });
+
+    res.status(200).json({ message: "Sesión cerrada correctamente" });
 };
